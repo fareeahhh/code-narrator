@@ -1826,7 +1826,10 @@ const webhookSecret = process.env.WEBHOOK_SECRET;
 const privateKeyPath = process.env.PRIVATE_KEY_PATH;
 
 // This reads the contents of your private key file.
-const privateKey = fs.readFileSync(privateKeyPath, "utf8");
+// const privateKey = fs.readFileSync(privateKeyPath, "utf8");
+
+// Use environment variable for private key in production, fallback to file for local development
+const privateKey = process.env.PRIVATE_KEY || fs.readFileSync(privateKeyPath, "utf8");
 
 // This creates a new instance of the Octokit App class.
 const app = new App({
