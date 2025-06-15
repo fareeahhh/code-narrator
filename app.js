@@ -1829,7 +1829,7 @@ const privateKeyPath = process.env.PRIVATE_KEY_PATH;
 // const privateKey = fs.readFileSync(privateKeyPath, "utf8");
 
 // Use environment variable for private key in production, fallback to file for local development
-const privateKey = process.env.PRIVATE_KEY || fs.readFileSync(privateKeyPath, "utf8");
+const privateKey = process.env.PRIVATE_KEY_PATH || fs.readFileSync(privateKeyPath, "utf8");
 
 // This creates a new instance of the Octokit App class.
 const app = new App({
