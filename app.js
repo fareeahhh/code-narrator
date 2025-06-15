@@ -1827,15 +1827,12 @@ const privateKeyPath = process.env.PRIVATE_KEY_PATH;
 
 // Handle private key for both production (Railway) and local development
 let privateKey;
-if (
-  process.env.PRIVATE_KEY_PATH &&
-  process.env.PRIVATE_KEY_PATH.startsWith("-----BEGIN")
-) {
-  // Production: private key content is directly in the environment variable
-  privateKey = process.env.PRIVATE_KEY_PATH;
-} else {
+if (process.env.PRIVATE_KEY) {
+  // Production: use PRIVATE_KEY environment variable
+  privateKey = process.env.PRIVATE_KEY;
+} else if (process.env.PRIVATE_KEY_PATH) {
   // Local development: read from file path
-  privateKey = fs.readFileSync(privateKeyPath, "utf8");
+  privateKey = fs.readFileSync(process.env.PRIVATE_KEY_PATH, "utf8");
 }
 
 // This creates a new instance of the Octokit App class.
