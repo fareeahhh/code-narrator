@@ -1,0 +1,25 @@
+{
+  "name": "sample-app-fyp",
+  "version": "1.0.0",
+  "description": "Sample App FYP made using Github's guide \"Building a GitHub App that responds to webhook events\"",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@octokit/rest": "^21.1.1",
+    "@octokit/webhooks": "^14.0.2",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "node-fetch": "^3.3.2",
+    "octokit": "^4.0.2"
+  },
+  "devDependencies": {
+    "smee-client": "^2.0.4"
+  }
+}

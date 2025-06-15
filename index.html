@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Narrator - GitHub Repository Analyzer</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="app-logo">
+          <div class="logo-circle">
+            <i class="fas fa-code"></i>
+          </div>
+        </div>
+        <h1>Code Narrator</h1>
+        <p class="tagline">
+          Intelligent GitHub repository analysis and documentation
+        </p>
+        <p class="subtitle">
+          Analyze repositories, generate comprehensive READMEs, and add helpful
+          code comments to improve code understanding
+        </p>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div id="container">
+        <div class="container-header">
+          <h2>Analyze Repository</h2>
+          <p class="header-description">
+            Enter a GitHub repository URL to start exploring its metadata and
+            documentation
+          </p>
+        </div>
+
+        <!-- Installation Info -->
+        <div
+          id="installationInfo"
+          class="notification installation-notification"
+          style="display: none"
+        >
+          <div class="notification-content">
+            <div class="notification-header">
+              <div class="notification-header-content">
+                <div class="notification-icon">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Welcome to Code Narrator!</h3>
+              </div>
+              <button
+                class="notification-close"
+                onclick="closeInstallationNotification()"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <p>
+              Your GitHub App has been successfully installed. You can now
+              analyze your repositories!
+            </p>
+          </div>
+        </div>
+
+        <!-- Push Notification -->
+        <div
+          id="pushNotification"
+          class="notification push-notification"
+          style="display: none"
+        >
+          <div class="notification-content">
+            <div class="notification-header">
+              <div class="notification-header-content">
+                <div class="notification-icon">
+                  <i class="fas fa-sync-alt"></i>
+                </div>
+                <h3>Repository Update Detected</h3>
+              </div>
+            </div>
+            <p id="pushMessage">
+              A new commit was detected in your repository. Would you like to
+              generate an updated README?
+            </p>
+            <div class="notification-buttons">
+              <button class="btn btn-primary" onclick="generateUpdatedReadme()">
+                <i class="fas fa-file-alt"></i>Update README
+              </button>
+              <button class="btn btn-secondary" onclick="dismissNotification()">
+                Not Now
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Success Notification -->
+        <div
+          id="successNotification"
+          class="notification success-notification"
+          style="display: none"
+        >
+          <div class="notification-content">
+            <div class="notification-header">
+              <div class="notification-header-content">
+                <div class="notification-icon">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>README pushed to GitHub successfully!</h3>
+              </div>
+              <button
+                class="notification-close"
+                onclick="closeSuccessNotification()"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <p>
+              <a href="#" target="_blank">View the commit on GitHub</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="container-body">
+          <form id="repoForm" onsubmit="return false;">
+            <div class="input-group">
+              <i class="fab fa-github input-icon"></i>
+              <input
+                type="text"
+                name="repo_url"
+                placeholder="Enter GitHub repository URL (e.g., https://github.com/username/repo)"
+                required
+              />
+            </div>
+            <div class="button-container">
+              <!-- First Row -->
+              <button type="submit" class="fetch-metadata-btn">
+                <i class="fas fa-search"></i> Fetch Metadata
+              </button>
+              <button
+                type="button"
+                class="generate-readme-btn"
+                id="generateReadmeBtn"
+              >
+                <i class="fas fa-file-alt"></i> Generate README
+              </button>
+              <button
+                type="button"
+                class="generate-comments-btn"
+                id="generateCommentsBtn"
+              >
+                <i class="fas fa-comment-dots"></i> Generate Comments
+              </button>
+            </div>
+          </form>
+
+          <!-- Results Section -->
+          <div class="results-section" id="metadata">
+            <div class="results-header">
+              <i class="fas fa-info-circle"></i>
+              <div>
+                <h3 class="results-title">Repository Analysis</h3>
+                <p class="results-subtitle">
+                  Enter a GitHub repository URL above to get started
+                </p>
+              </div>
+            </div>
+            <div class="content-box">
+              <p>
+                Code Narrator helps you understand GitHub repositories better by
+                providing valuable insights:
+              </p>
+              <ul style="margin-top: 1rem; margin-left: 1.5rem">
+                <li>
+                  Quickly view repository statistics like stars, forks, and
+                  watchers
+                </li>
+                <li>
+                  Generate comprehensive README documentation for projects
+                </li>
+                <li>
+                  Add explanatory comments to code for better understanding
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="#"><i class="fab fa-github"></i> GitHub</a>
+          <a href="#"><i class="far fa-question-circle"></i> Documentation</a>
+          <a href="#"><i class="far fa-comment-alt"></i> Feedback</a>
+          <a href="#"><i class="far fa-envelope"></i> Contact</a>
+        </div>
+        <p class="copyright">© 2025 Code Narrator - All rights reserved</p>
+      </div>
+    </footer>
+
+    <!-- Popup for README push confirmation -->
+    <div id="readmePopup" class="popup-overlay">
+      <div class="popup">
+        <i
+          class="fas fa-file-alt"
+          style="font-size: 48px; color: #4caf50; margin-bottom: 20px"
+        ></i>
+        <h3>📄 README Generated Successfully!</h3>
+        <p>
+          Your new README has been generated. Would you like to push it to your
+          GitHub repository?
+        </p>
+        <div class="popup-buttons">
+          <button class="btn btn-success" onclick="pushReadmeToGitHub()">
+            <i class="fas fa-upload"></i> Yes, Push to GitHub
+          </button>
+          <button class="btn btn-secondary" onclick="closeReadmePopup()">
+            <i class="fas fa-eye"></i> View Only
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Include marked.js for Markdown rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+
+    <!-- Include highlight.js for code syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+    <!-- Include our JavaScript file -->
+    <script src="scripts.js"></script>
+
+    <script>
+      // Add close installation notification function
+      function closeInstallationNotification() {
+        const notification = document.getElementById("installationInfo");
+        notification.style.display = "none";
+      }
+
+      // Add close success notification function
+      function closeSuccessNotification() {
+        const notification = document.getElementById("successNotification");
+        notification.style.display = "none";
+      }
+
+      // Function to show success notification
+      function showSuccessNotification() {
+        const notification = document.getElementById("successNotification");
+        const linkElement = notification.querySelector("a");
+        const repoUrl = document.querySelector('input[name="repo_url"]').value;
+
+        if (linkElement && repoUrl) {
+          linkElement.href = repoUrl;
+        }
+
+        notification.style.display = "block";
+      }
+    </script>
+  </body>
+</html>
